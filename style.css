@@ -3,20 +3,27 @@
 	max-width: 1200px;
 	margin-left: auto;
 	margin-right: auto;
+	padding-bottom: 10px;
+}
+
+.content-head {
+	/*display: flex;*/
 }
 
 .title {
-	font-size: 2.7em;
+	font-size: 42px;
+	font-family: "Oswald", sans-serif;
 	color: #FFF;
 	margin-top: 5px;
-	padding-left: 50px;
-	padding-top: 25px;
-	padding-bottom: 25px;
+	margin-bottom: 0;
+	padding-left: 80px;
+	padding-top: 38px;
+	padding-bottom: 38px;
 }
-
 
 .channels {
 	padding: 0;
+	margin: 0;
 	background-color: #FFF;
 }
 
@@ -25,6 +32,10 @@
 	display: block;
 	list-style: none;
 	border-top: 3px solid #FFF;
+}
+
+.channels li:last-child {
+	border-bottom: 3px solid #FFF;
 }
 
 .chan-container {
@@ -46,18 +57,18 @@
 }
 
 .chan-logo {
-	/*flex: 1;*/
 	width: 100px;
 	height: 100px;
 }
 
 .chan-title {
-	flex: 1;
+	font-family: "Droid Serif", serif;
+	flex: 2;
 	margin-left: 25%;
 }
 
 .chan-status {
-	flex: 1;
+	flex: 2;
 	float: right;
 	/*margin-left: 30%;*/
 }
