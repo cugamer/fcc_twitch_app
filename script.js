@@ -16,7 +16,6 @@ function returnTwitchApiCall(endPoint, params) {
 function buildChannelInformation(chan) {
 	return returnTwitchApiCall('channels/' + chan, {})
 			.then(function(b) {return b.json()})
-			// .then(function(data){console.log(data); return data;})
 			.then(function(data) {
 				return returnTwitchApiCall('streams/' + chan, {})
 					.then(function(c) {return c.json()})
@@ -41,9 +40,11 @@ for(let i = 0; i < channels.length; i++) {
 function createChannelItem(args) {
 	let outputNode = document.createElement('li')
 	let channelName = args.display_name;
-	outputNode.innerHTML = `<div class="chan-icon">
+	let isStreaming = args.currentlyStreaming ? "Online" : "Offline";
+	outputNode.innerHTML = `<div class="chan-item chan-icon">
 								<img src="${args.logo}">
-								// <h3 chan-title>args.display_name</h3>
+								<h3 class="chan-item chan-title">${args.display_name}</h3>
+								<h3 class="chan-item chan-status">${isStreaming}</h3>
 							</div>`;
 	return outputNode;
 }
