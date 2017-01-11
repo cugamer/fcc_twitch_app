@@ -1,0 +1,27 @@
+.main-content {
+	background-color: #5C5457;
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.title {
+	font-size: 2.7em;
+	color: #FFF;
+	margin-top: 5px;
+	padding-left: 50px;
+	padding-top: 25px;
+	padding-bottom: 25px;
+}
+
+
+.channels {
+	padding: 0;
+}
+
+.channels li {
+	background-color: #4A5E82;
+	display: block;
+	list-style: none;
+	border-top: 3px solid #FFF;
+}
