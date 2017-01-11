@@ -41,9 +41,10 @@ function createChannelItem(args) {
 	let outputNode = document.createElement('li')
 	let channelName = args.display_name;
 	let isStreaming = args.currentlyStreaming ? "Online" : "Offline";
+	let chanLogo = args.logo || "https://dummyimage.com/200x200/fff/000.png&text=03XF"
 	outputNode.innerHTML = `<a href="https://www.twitch.tv/${args.display_name}" target="_blank">
 								<div class="chan-container">
-									<img class="chan-item chan-logo" src="${args.logo}">
+									<img class="chan-item chan-logo" src="${chanLogo}">
 									<h3 class="chan-item chan-title">${args.display_name}</h3>
 									<h3 class="chan-item chan-status">${isStreaming}</h3>
 								</div>
