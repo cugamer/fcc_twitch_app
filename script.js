@@ -21,3 +21,16 @@ for(let i = 0; i < channels.length; i++) {
 							{},
 							function(b) {console.log(b)});
 }
+
+function createChannelItem(args) {
+	let outputNode = document.createElement('li')
+	outputNode.innerHTML = `Here is a list item`;
+	return outputNode;
+}
+
+function appendChannelItem(item) {
+	let listNode = document.querySelector(".channels");
+	listNode.appendChild(item);
+}
+
+appendChannelItem(createChannelItem("asdf"))
