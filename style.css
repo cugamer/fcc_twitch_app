@@ -6,10 +6,6 @@
 	padding-bottom: 10px;
 }
 
-.content-head {
-	/*display: flex;*/
-}
-
 .title {
 	font-size: 42px;
 	font-family: "Oswald", sans-serif;
@@ -63,12 +59,16 @@
 
 .chan-title {
 	font-family: "Droid Serif", serif;
+	font-size: 1.5em;
+	color: #b8cca6;
 	flex: 2;
 	margin-left: 25%;
 }
 
 .chan-status {
 	flex: 2;
+	color: #8ea7c2;
+	font-size: 1.5em;
 	float: right;
-	/*margin-left: 30%;*/
+	font-family: "Droid Serif", serif;
 }
