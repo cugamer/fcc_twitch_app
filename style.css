@@ -25,3 +25,8 @@
 	list-style: none;
 	border-top: 3px solid #FFF;
 }
+
+.chan-icon img {
+	width: 100px;
+	height: 100px;
+}

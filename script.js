@@ -19,12 +19,14 @@ function getTwitchApiCall(endPoint, params, cb) {
 for(let i = 0; i < channels.length; i++) {
 	getTwitchApiCall("channels/" + channels[i],
 							{},
-							function(b) {console.log(b)});
+							function(b) {
+								appendChannelItem(createChannelItem(b));
+							});
 }
 
 function createChannelItem(args) {
 	let outputNode = document.createElement('li')
-	outputNode.innerHTML = `Here is a list item`;
+	outputNode.innerHTML = `<div class="chan-icon"><img src="${args.logo}"></div>`;
 	return outputNode;
 }
 
@@ -33,4 +35,4 @@ function appendChannelItem(item) {
 	listNode.appendChild(item);
 }
 
-appendChannelItem(createChannelItem("asdf"))
+// appendChannelItem(createChannelItem("asdf"))
