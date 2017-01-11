@@ -1,8 +1,23 @@
-const switchBase = "https://wind-bow.gomix.me/twitch-api/";
+const switchBaseURL = "https://wind-bow.gomix.me/twitch-api/";
+const channels = [
+	"test_channel", "freecodecamp", "lefrenchrestream"
+]
 
-
-function getTwitchChannelInfo(endPoint, callBack) {
-	fetch(switchBase + endPoint)
+function getTwitchApiCall(endPoint, params, cb) {
+	if(Object.keys(params).length > 0  && params.constructor === Object) {
+		endPoint += "?"
+		for(key in params) {
+			endPoint += `${key}=${params[key]}`
+		}
+	}
+	console.log(switchBaseURL + endPoint)
+	fetch(switchBaseURL + endPoint)
 		.then(function(blob) { return blob.json() })
-		.then(function(data) { callBack(data); });
+		.then(function(data) { cb(data); });
+}
+
+for(let i = 0; i < channels.length; i++) {
+	getTwitchApiCall("channels/" + channels[i],
+							{},
+							function(b) {console.log(b)});
 }
