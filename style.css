@@ -17,6 +17,7 @@
 
 .channels {
 	padding: 0;
+	background-color: #FFF;
 }
 
 .channels li {
@@ -26,7 +27,37 @@
 	border-top: 3px solid #FFF;
 }
 
-.chan-icon img {
+.chan-container {
+	margin-left: 15px;
+	margin-right: 15px;
+	display: flex;
+}
+
+.chan-item {
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: inline-flex;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	-webkit-box-align: center;
+	align-items: center;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.chan-logo {
+	/*flex: 1;*/
 	width: 100px;
 	height: 100px;
+}
+
+.chan-title {
+	flex: 1;
+	margin-left: 25%;
+}
+
+.chan-status {
+	flex: 1;
+	float: right;
+	/*margin-left: 30%;*/
 }
