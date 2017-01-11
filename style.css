@@ -40,6 +40,10 @@
 	display: flex;
 }
 
+a  {
+	text-decoration: none;
+}
+
 .chan-item {
 	display: -ms-flexbox;
 	display: -webkit-flex;
@@ -62,13 +66,14 @@
 	font-size: 1.5em;
 	color: #b8cca6;
 	flex: 2;
-	margin-left: 25%;
+	justify-content: flex-start;
+	margin-left: 30px;
 }
 
 .chan-status {
 	flex: 2;
 	color: #8ea7c2;
 	font-size: 1.5em;
-	float: right;
+	justify-content: center;
 	font-family: "Droid Serif", serif;
 }
