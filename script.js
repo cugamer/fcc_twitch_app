@@ -53,14 +53,16 @@ function channelBuilder(channels) {
 function createChannelItem(args) {
 	let outputNode = document.createElement('li')
 	let channelName = args.display_name;
-	let isStreaming = args.stream != null ? `Online, currently streaming ${args.stream.game}` : "Offline";
+	let isStreaming = args.stream != null 
+	let chanStatus = isStreaming ? `${args.stream.game}: ${args.stream.channel.status}` : "Offline";
+	let chanStatusClass = isStreaming ? "stream-on" : "stream-off";
 	let chanLogo = args.logo || "https://dummyimage.com/200x200/fff/000.png&text=03XF"
 	outputNode.innerHTML = 
-			`<a href="https://www.twitch.tv/${args.display_name}" target="_blank" class="streaming-${isStreaming.toLowerCase()}">
+			`<a href="https://www.twitch.tv/${args.display_name}" target="_blank" class="${chanStatusClass}">
 				<div class="chan-container">
 					<img class="chan-item chan-logo" src="${chanLogo}">
 					<h3 class="chan-item chan-title">${args.display_name}</h3>
-					<h3 class="chan-item chan-status">${isStreaming}</h3>
+					<h3 class="chan-item chan-status">${chanStatus}</h3>
 				</div>
 			</a>`;
 	return outputNode;
