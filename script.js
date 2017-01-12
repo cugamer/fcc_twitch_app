@@ -28,19 +28,26 @@ function buildChannelInformation(chan) {
 				return workingChanData;
 			})
 			.then(function(workingChanData) {
-				console.log(workingChanData);
 				return(workingChanData);
 			});
 }
 
-// function channelFactory(channels) {
-// 	let channelList = [];
+function channelFactory(channels) {
+	let chanPromiseList = [];
 	for(let i = 0; i < channels.length; i++) {
-		buildChannelInformation(channels[i]).then(function(data) {
-			appendChannelItem(createChannelItem(data));
-		})
+		chanPromiseList.push(buildChannelInformation(channels[i]));
 	}
-// }
+	Promise.all(chanPromiseList).then(values => {
+		console.table(values)
+		values.sort(function(a, b) { 
+			return a.display_name.toLowerCase() < b.display_name.toLowerCase() ? -1 : 1; })
+		console.table(values)
+		values.forEach(function(val) {
+			console.log(val);
+			appendChannelItem(createChannelItem(val));
+		});
+	})
+}
 
 function createChannelItem(args) {
 	let outputNode = document.createElement('li')
@@ -61,3 +68,5 @@ function appendChannelItem(item) {
 	let listNode = document.querySelector(".channels");
 	listNode.appendChild(item);
 }
+
+console.log(channelFactory(channels));
