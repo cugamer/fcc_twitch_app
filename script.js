@@ -35,18 +35,19 @@ function buildChannelInformation(chan) {
 			});
 }
 
-function channelFactory(channels) {
+function channelBuilder(channels) {
 	let chanPromiseList = [];
-	for(let i = 0; i < channels.length; i++) {
-		chanPromiseList.push(buildChannelInformation(channels[i]));
-	}
+	channels.forEach(channel => {
+		chanPromiseList.push(buildChannelInformation(channel));		
+	});
 	Promise.all(chanPromiseList).then(values => {
 		values.sort(function(a, b) { 
-			return a.display_name.toLowerCase() < b.display_name.toLowerCase() ? -1 : 1; })
+			return a.display_name.toLowerCase() < b.display_name.toLowerCase() ? -1 : 1; 
+		});
 		values.forEach(function(val) {
 			appendChannelItem(createChannelItem(val));
 		});
-	})
+	});
 }
 
 function createChannelItem(args) {
@@ -70,4 +71,4 @@ function appendChannelItem(item) {
 	listNode.appendChild(item);
 }
 
-channelFactory(channels);
+channelBuilder(channels);
