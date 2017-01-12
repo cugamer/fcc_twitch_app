@@ -27,12 +27,12 @@ function buildChannelInformation(chan) {
 				return blob.json();
 			})
 			.then(function(data) {
-				workingChanData.currentlyStreaming = data.stream != null ? true : false;
+				for(prop in data) {
+					workingChanData[prop] = data[prop];
+				}
+				console.log(workingChanData)
 				return workingChanData;
 			})
-			.then(function(workingChanData) {
-				return(workingChanData);
-			});
 }
 
 function channelBuilder(channels) {
@@ -53,7 +53,7 @@ function channelBuilder(channels) {
 function createChannelItem(args) {
 	let outputNode = document.createElement('li')
 	let channelName = args.display_name;
-	let isStreaming = args.currentlyStreaming ? "Online" : "Offline";
+	let isStreaming = args.stream != null ? `Online, currently streaming ${args.stream.game}` : "Offline";
 	let chanLogo = args.logo || "https://dummyimage.com/200x200/fff/000.png&text=03XF"
 	outputNode.innerHTML = 
 			`<a href="https://www.twitch.tv/${args.display_name}" target="_blank" class="streaming-${isStreaming.toLowerCase()}">
