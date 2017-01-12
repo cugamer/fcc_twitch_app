@@ -14,28 +14,33 @@ function returnTwitchApiCall(endPoint, params) {
 }
 
 function buildChannelInformation(chan) {
+	let workingChanData;
 	return returnTwitchApiCall('channels/' + chan, {})
-			.then(function(b) {return b.json()})
-			.then(function(data) {
-				return returnTwitchApiCall('streams/' + chan, {})
-					.then(function(c) {return c.json()})
-					.then(function(d) { 
-						data.currentlyStreaming = d.stream != null ? true : false;
-						return data;
-					});
+			.then(function(b) {
+				workingChanData = b.json();
+				return workingChanData;
 			})
-			.then(function(dman) {
-				console.log(dman);
-				return(dman);
+			.then(function() {
+				return returnTwitchApiCall('streams/' + chan, {});
+			})
+			.then(function(data) {
+				workingChanData.currentlyStreaming = data.stream != null ? true : false;
+				return workingChanData;
+			})
+			.then(function(workingChanData) {
+				console.log(workingChanData);
+				return(workingChanData);
 			});
 }
 
-
-for(let i = 0; i < channels.length; i++) {
-	buildChannelInformation(channels[i]).then(function(dbag) {
-		appendChannelItem(createChannelItem(dbag));
-	})
-}
+// function channelFactory(channels) {
+// 	let channelList = [];
+	for(let i = 0; i < channels.length; i++) {
+		buildChannelInformation(channels[i]).then(function(data) {
+			appendChannelItem(createChannelItem(data));
+		})
+	}
+// }
 
 function createChannelItem(args) {
 	let outputNode = document.createElement('li')
