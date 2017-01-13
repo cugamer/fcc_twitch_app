@@ -6,6 +6,10 @@
 	padding-bottom: 10px;
 }
 
+.content-head {
+	position: relative;
+}
+
 .title {
 	font-size: 42px;
 	font-family: "Oswald", sans-serif;
@@ -91,4 +95,47 @@ li a.stream-on .chan-container {
 li a.stream-on .chan-container .chan-title,
 li a.stream-on .chan-container .chan-status {
 	color: #000;	
+}
+
+.display-options {
+	list-style: none;
+	position: absolute;
+	right: 0%;
+	top: 1%;
+	padding-left: 0;
+	z-index: 5;
+}
+
+.disp-option {
+	font-size: 1.3em;
+	background-color: #E1E1E6;
+	margin-bottom: 6px;
+	width: 28px;
+	height: 26px;
+	display: block;
+}
+
+.disp-all {}
+.disp-online {}
+.disp-offline {}
+
+.disp-circ {
+	display: inline-block;
+	height: 16px;
+	width: 16px;
+	border-radius: 50%;
+	border: 1px solid black;
+	margin: 5px;
+}
+
+.disp-all .disp-circ {
+	background-color: #5C5457;	
+}
+
+.disp-online .disp-circ {
+	background-color: #B8CCA6;	
+}
+
+.disp-offline .disp-circ {
+	background-color: #4A5E82;	
 }
