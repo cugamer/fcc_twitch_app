@@ -104,6 +104,7 @@ li a.stream-on .chan-container .chan-status {
 	top: 1%;
 	padding-left: 0;
 	z-index: 5;
+	width: 28px;
 }
 
 .disp-option {
@@ -113,6 +114,10 @@ li a.stream-on .chan-container .chan-status {
 	width: 28px;
 	height: 26px;
 	display: block;
+	position: relative;
+	overflow: hidden;
+	float: right;
+	clear: right;
 }
 
 .disp-all {}
@@ -128,7 +133,7 @@ li a.stream-on .chan-container .chan-status {
 	margin: 5px;
 }
 
-.disp-all .disp-circ {
+.disp-option .disp-circ {
 	background-color: #5C5457;	
 }
 
@@ -137,5 +142,22 @@ li a.stream-on .chan-container .chan-status {
 }
 
 .disp-offline .disp-circ {
-	background-color: #4A5E82;	
+	background-color: #4A5E82;
+}
+
+.disp-opt-open {
+	/*right: 92px;*/
+	/*transform: translateX(-92px);*/
+	width: 110px;
+	transition: width 0.75s, transform 0.75s ease;
+}
+
+.disp-opt-text {
+	font-family: "Oswald", sans-serif;
+	font-weight: 700;
+	color: #5C5457;
+	display: block;
+	float: right;
+	line-height: 26px;
+	margin-right: 5px;
 }

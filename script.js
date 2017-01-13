@@ -30,7 +30,6 @@ function buildChannelInformation(chan) {
 				for(prop in data) {
 					workingChanData[prop] = data[prop];
 				}
-				console.log(workingChanData)
 				return workingChanData;
 			})
 }
@@ -74,3 +73,15 @@ function appendChannelItem(item) {
 }
 
 channelBuilder(channels);
+
+const displayOptions = document.querySelectorAll('.disp-option');
+console.log(displayOptions);
+
+function expandDispItem(e) {
+	console.log("called")
+	console.log(this)
+	this.classList.toggle('disp-opt-open');
+}
+
+displayOptions.forEach((option) => option.addEventListener('mouseenter', expandDispItem));
+displayOptions.forEach((option) => option.addEventListener('mouseleave', expandDispItem));
