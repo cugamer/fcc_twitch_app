@@ -1,6 +1,6 @@
 const switchBaseURL = "https://wind-bow.gomix.me/twitch-api/";
 const channels = [
-	"test_channel", "freecodecamp", "imaqtpie", "timthetatman"
+	"test_channel", "freecodecamp", "doublelift"
 ]
 
 function returnTwitchApiCall(endPoint, params) {
@@ -57,7 +57,7 @@ function createChannelItem(args) {
 	let chanStatusClass = isStreaming ? "stream-on" : "stream-off";
 	let chanLogo = args.logo || "https://dummyimage.com/200x200/fff/000.png&text=03XF"
 	outputNode.innerHTML = 
-			`<a href="https://www.twitch.tv/${args.display_name}" target="_blank" class="${chanStatusClass}">
+			`<a href="https://www.twitch.tv/${args.display_name}" target="_blank" class="chan-link ${chanStatusClass}">
 				<div class="chan-container">
 					<img class="chan-item chan-logo" src="${chanLogo}">
 					<h3 class="chan-item chan-title">${args.display_name}</h3>
@@ -97,7 +97,7 @@ function closeInactiveOptions() {
 	displayOptions.forEach((option) => {
 		const value = option.classList.value;
 		if(!value.includes("active") && value.includes("disp-opt-open")) {
-			toggleItemDisp(option)
+			toggleItemDisp(option);
 		};
 	});
 }
@@ -115,3 +115,37 @@ function handleListOptionClick() {
 displayOptions.forEach((option) => option.addEventListener('click', handleListOptionClick));
 displayOptions.forEach((option) => option.addEventListener('mouseenter', displayNonActiveListItem));
 displayOptions.forEach((option) => option.addEventListener('mouseleave', displayNonActiveListItem));
+
+function getChannelNodeList() {
+	return document.querySelectorAll('.chan-link');
+}
+
+function toggleChannelList(targetClass, action) {
+	getChannelNodeList().forEach((channel) => {
+		if(channel.classList.value.includes(targetClass)) { channel.classList[action]("hidden"); }
+	})
+}
+
+function hideActiveChannels() {
+	getChannelNodeList().forEach((channel) => {
+		if(channel.classList.value.includes('stream-on')) { channel.classList.add("hidden"); }
+	})
+}
+
+function showActiveChannels() {
+	getChannelNodeList().forEach((channel) => {
+		if(channel.classList.value.includes('stream-on')) { channel.classList.remove("hidden");	}
+	})
+}
+
+function hideInactiveChannels() {
+	getChannelNodeList().forEach((channel) => {
+		if(channel.classList.value.includes('stream-off')) { channel.classList.add("hidden"); }
+	})
+}
+
+function showInactiveChannels() {
+	getChannelNodeList().forEach((channel) => {
+		if(channel.classList.value.includes('stream-off')) { channel.classList.remove("hidden");	}
+	})
+}
