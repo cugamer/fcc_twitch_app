@@ -1,8 +1,9 @@
 const switchBaseURL = "https://wind-bow.gomix.me/twitch-api/";
 const channels = [
-	// "test_channel",
-	// "freecodecamp",
+	"test_channel",
+	"freecodecamp",
 	"doublelift", 
+	"imaqtpie",
 	"adsasfdafdasdf"
 ]
 
@@ -53,52 +54,77 @@ function channelBuilder(channels) {
 		values.forEach(function(val) {
 			console.log(val)
 			if(val.error == "Not Found") {
-				appendChannelItem(createNotFoundChannelItem(val));
+				appendChannelItem(createChannelListItem(val));
 			} else {
-				appendChannelItem(createChannelItem(val));
+				appendChannelItem(createChannelListItem(val));
 			}
 		});
 	});
 }
 
-function createChannelItem(args) {
-	let outputNode = document.createElement('li')
-	let channelName = args.display_name;
-	let isStreaming = args.stream != null
-	let chanStatus = isStreaming ? `${args.stream.game}: ${args.stream.channel.status}` : "Offline";
-	let chanStatusClass = isStreaming ? "stream-on" : "stream-off";
-	let chanLogo = args.logo || "https://dummyimage.com/200x200/fff/000.png&text=03XF"
-	outputNode.innerHTML = 
-			`<a href="https://www.twitch.tv/${args.display_name}" target="_blank" class="chan-link ${chanStatusClass}">
-				<div class="chan-container">
-					<img class="chan-item chan-logo" src="${chanLogo}">
-					<h3 class="chan-item chan-title">${args.display_name}</h3>
-					<h3 class="chan-item chan-status">${chanStatus}</h3>
-				</div>
-			</a>`;
+function createChannelListItem(args) {
+	let outputNode = document.createElement('li');
+	let channelInfo = {};
+	channelInfo.channelName = args.channelName;
+	channelInfo.exists = args.error == "Not Found" ? false : true;
+	channelInfo.isStreaming = args.stream != null;
+	console.log("is streaming " + channelInfo.isStreaming)
+	channelInfo.chanStatus = args.stream ? `${args.stream.game}: ${args.stream.channel.status}` : "Offline";
+	console.log(channelInfo.chanStatus)
+	channelInfo.chanLogo = args.logo || "https://dummyimage.com/200x200/fff/000.png&text=03XF";
+	outputNode.innerHTML = channelInfo.exists ? createExistsChannelContents(channelInfo) : createNonExistsChannelContents(channelInfo);
 	return outputNode;
 }
 
-function createNotFoundChannelItem(args) {
-	let outputNode = document.createElement('li')
-	let channelName = args.channelName;
-	let isStreaming = null
-	let chanStatus = isStreaming ? `${args.stream.game}: ${args.stream.channel.status}` : "Offline";
-	let chanStatusClass = isStreaming ? "stream-on" : "stream-off";
-	let chanLogo = args.logo || "https://dummyimage.com/200x200/fff/000.png&text=03XF"
-	outputNode.innerHTML = 
-				`<div class="chan-container">
-					<img class="chan-item chan-logo" src="${chanLogo}">
-					<h3 class="chan-item chan-title">${args.channelName}</h3>
-					<h3 class="chan-item chan-status">This cannel cannot be found and may not exist</h3>
-				</div>`;
-	return outputNode;
+function createExistsChannelContents(args) {
+	let chanStatusClass = args.isStreaming ? "stream-on" : "stream-off";
+	return `<div class="chan-container ${chanStatusClass}">
+				<img class="chan-item chan-logo" src="${args.chanLogo}">
+				<h3 class="chan-item chan-title">${args.channelName}</h3>
+				<h3 class="chan-item chan-status"><a href="https://www.twitch.tv/${args.channelName}" target="_blank"class="chan-link">${args.chanStatus}</a></h3>
+			</div>`
+}
+function createNonExistsChannelContents(args) {
+	return `<div class="chan-container">
+				<img class="chan-item chan-logo" src="${args.chanLogo}">
+				<h3 class="chan-item chan-title">${args.channelName}</h3>
+				<h3 class="chan-item chan-status">This channel cannot be found and may not exist</h3>
+			</div>`;
 }
 
 function appendChannelItem(item) {
 	let listNode = document.querySelector(".channels");
 	listNode.appendChild(item);
 }
+
+// function createChannelItem(args) {
+// 	let outputNode = document.createElement('li')
+// 	let channelName = args.display_name;
+// 	let isStreaming = args.stream != null
+// 	let chanStatus = isStreaming ? `${args.stream.game}: ${args.stream.channel.status}` : "Offline";
+// 	let chanStatusClass = isStreaming ? "stream-on" : "stream-off";
+// 	let chanLogo = args.logo || "https://dummyimage.com/200x200/fff/000.png&text=03XF"
+// 	outputNode.innerHTML = 
+// 			`<div class="chan-container ${chanStatusClass}">
+// 				<img class="chan-item chan-logo" src="${chanLogo}">
+// 				<h3 class="chan-item chan-title">${args.display_name}</h3>
+// 				<h3 class="chan-item chan-status"><a href="https://www.twitch.tv/${args.display_name}" target="_blank"class="chan-link">${chanStatus}</a></h3>
+// 			</div>`;
+// 	return outputNode;
+// }
+
+// function createNotFoundChannelItem(args) {
+// 	let outputNode = document.createElement('li')
+// 	let channelName = args.channelName;
+// 	let chanLogo = args.logo || "https://dummyimage.com/200x200/fff/000.png&text=03XF"
+// 	outputNode.innerHTML = 
+// 				`<div class="chan-container">
+// 					<img class="chan-item chan-logo" src="${chanLogo}">
+// 					<h3 class="chan-item chan-title">${args.channelName}</h3>
+// 					<h3 class="chan-item chan-status">This cannel cannot be found and may not exist</h3>
+// 				</div>`;
+// 	return outputNode;
+// }
 
 channelBuilder(channels);
 

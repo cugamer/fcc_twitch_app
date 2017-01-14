@@ -88,12 +88,16 @@ a {
 	font-family: "Droid Serif", serif;
 }
 
-li a.stream-on .chan-container {
+li .chan-container a {
+	color: #8ea7c2;	
+}
+
+li .chan-container.stream-on {
 	background-color: #B8CCA6;
 }
 
-li a.stream-on .chan-container .chan-title,
-li a.stream-on .chan-container .chan-status {
+li .chan-container.stream-on .chan-title,
+li .chan-container.stream-on .chan-status a {
 	color: #000;	
 }
 
