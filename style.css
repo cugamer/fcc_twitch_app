@@ -147,12 +147,12 @@ li a.stream-on .chan-container .chan-status {
 
 .disp-opt-open {
 	width: 110px;
-	transition: width 0.75s;
+	transition: width 0.50s;
 }
 
 .disp-opt-close {
 	width: 28px;
-	transition: width 0.75s;
+	transition: width 0.50s;
 }
 
 .disp-opt-text {

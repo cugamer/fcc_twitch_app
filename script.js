@@ -52,7 +52,7 @@ function channelBuilder(channels) {
 function createChannelItem(args) {
 	let outputNode = document.createElement('li')
 	let channelName = args.display_name;
-	let isStreaming = args.stream != null 
+	let isStreaming = args.stream != null
 	let chanStatus = isStreaming ? `${args.stream.game}: ${args.stream.channel.status}` : "Offline";
 	let chanStatusClass = isStreaming ? "stream-on" : "stream-off";
 	let chanLogo = args.logo || "https://dummyimage.com/200x200/fff/000.png&text=03XF"
@@ -74,39 +74,44 @@ function appendChannelItem(item) {
 
 channelBuilder(channels);
 
+
+// Control display of channel options list items
 const displayOptions = document.querySelectorAll('.disp-option');
-console.log(displayOptions);
-
-function openListItem(e) {
-	if(!this.classList.value.includes("active")) {
-		toggleItemDisp(this);
-	}
-}
-
-
-function closeInactiveOptions() {
-	displayOptions.forEach((option) => {
-		if(!option.classList.value.includes("active") && option.classList.value.includes("disp-opt-open")) {
-			// option.classList.toggle('disp-opt-open');
-			// option.classList.toggle('disp-opt-close');
-			toggleItemDisp(option)
-		};
-	});
-}
 
 function toggleItemDisp(target) {
 	target.classList.toggle('disp-opt-open');
 	target.classList.toggle('disp-opt-close');
 }
 
-function activateListOption() {
-	console.log("called")
+function clearAllLIActives() {
 	displayOptions.forEach((option) => option.classList.remove('active'));
-	const classes = this.classlist;
-	this.classList += " active";
+}
+
+function displayNonActiveListItem(e) {
+	if(!this.classList.value.includes("active")) {
+		toggleItemDisp(this);
+	}
+}
+
+function closeInactiveOptions() {
+	displayOptions.forEach((option) => {
+		const value = option.classList.value;
+		if(!value.includes("active") && value.includes("disp-opt-open")) {
+			toggleItemDisp(option)
+		};
+	});
+}
+
+function addActiveToListItem(target) {
+	target.classList += " active";
+}
+
+function handleListOptionClick() {
+	clearAllLIActives();
+	addActiveToListItem(this);
 	closeInactiveOptions();
 }
 
-displayOptions.forEach((option) => option.addEventListener('click', activateListOption));
-displayOptions.forEach((option) => option.addEventListener('mouseenter', openListItem));
-displayOptions.forEach((option) => option.addEventListener('mouseleave', openListItem));
+displayOptions.forEach((option) => option.addEventListener('click', handleListOptionClick));
+displayOptions.forEach((option) => option.addEventListener('mouseenter', displayNonActiveListItem));
+displayOptions.forEach((option) => option.addEventListener('mouseleave', displayNonActiveListItem));
