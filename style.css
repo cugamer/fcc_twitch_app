@@ -126,8 +126,8 @@ li a.stream-on .chan-container .chan-status {
 
 .disp-circ {
 	display: inline-block;
-	height: 16px;
-	width: 16px;
+	height: 14px;
+	width: 14px;
 	border-radius: 50%;
 	border: 1px solid black;
 	margin: 5px;
@@ -162,7 +162,8 @@ li a.stream-on .chan-container .chan-status {
 	display: block;
 	float: right;
 	line-height: 26px;
-	margin-right: 5px;
+	height: 26px;
+	margin-right: 10px;
 	cursor: default;
 }
 
