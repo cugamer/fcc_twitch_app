@@ -77,11 +77,36 @@ channelBuilder(channels);
 const displayOptions = document.querySelectorAll('.disp-option');
 console.log(displayOptions);
 
-function expandDispItem(e) {
-	console.log("called")
-	console.log(this)
-	this.classList.toggle('disp-opt-open');
+function openListItem(e) {
+	if(!this.classList.value.includes("active")) {
+		toggleItemDisp(this);
+	}
 }
 
-displayOptions.forEach((option) => option.addEventListener('mouseenter', expandDispItem));
-displayOptions.forEach((option) => option.addEventListener('mouseleave', expandDispItem));
+
+function closeInactiveOptions() {
+	displayOptions.forEach((option) => {
+		if(!option.classList.value.includes("active") && option.classList.value.includes("disp-opt-open")) {
+			// option.classList.toggle('disp-opt-open');
+			// option.classList.toggle('disp-opt-close');
+			toggleItemDisp(option)
+		};
+	});
+}
+
+function toggleItemDisp(target) {
+	target.classList.toggle('disp-opt-open');
+	target.classList.toggle('disp-opt-close');
+}
+
+function activateListOption() {
+	console.log("called")
+	displayOptions.forEach((option) => option.classList.remove('active'));
+	const classes = this.classlist;
+	this.classList += " active";
+	closeInactiveOptions();
+}
+
+displayOptions.forEach((option) => option.addEventListener('click', activateListOption));
+displayOptions.forEach((option) => option.addEventListener('mouseenter', openListItem));
+displayOptions.forEach((option) => option.addEventListener('mouseleave', openListItem));
