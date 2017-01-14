@@ -83,8 +83,11 @@ a {
 	flex: 4;
 	color: #8ea7c2;
 	font-size: 1.5em;
-	justify-content: center;
-	text-align: center;
+	justify-content: flex-start;
+	align-items: center;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: hidden;
 	font-family: "Droid Serif", serif;
 }
 
@@ -123,10 +126,6 @@ li .chan-container.stream-on .chan-status a {
 	float: right;
 	clear: right;
 }
-
-.disp-all {}
-.disp-online {}
-.disp-offline {}
 
 .disp-circ {
 	display: inline-block;
