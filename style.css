@@ -163,6 +163,7 @@ li a.stream-on .chan-container .chan-status {
 	float: right;
 	line-height: 26px;
 	margin-right: 5px;
+	cursor: default;
 }
 
 .hidden {

@@ -106,15 +106,36 @@ function addActiveToListItem(target) {
 	target.classList += " active";
 }
 
-function handleListOptionClick() {
+function handleDispListOptionClick(target) {
 	clearAllLIActives();
-	addActiveToListItem(this);
+	addActiveToListItem(target);
 	closeInactiveOptions();
 }
 
-displayOptions.forEach((option) => option.addEventListener('click', handleListOptionClick));
+function handleDispAllClick() {
+	handleDispListOptionClick(this);
+	toggleChannelList('stream-on', 'remove');
+	toggleChannelList('stream-off', 'remove');
+}
+
+function handleDispOnlineClick() {
+	handleDispListOptionClick(this);
+	toggleChannelList('stream-on', 'remove');
+	toggleChannelList('stream-off', 'add');
+}
+
+function handleDispOfflineClick() {
+	handleDispListOptionClick(this);
+	toggleChannelList('stream-on', 'add');
+	toggleChannelList('stream-off', 'remove');
+}
+
 displayOptions.forEach((option) => option.addEventListener('mouseenter', displayNonActiveListItem));
 displayOptions.forEach((option) => option.addEventListener('mouseleave', displayNonActiveListItem));
+
+document.querySelector('.disp-all').addEventListener('click', handleDispAllClick);
+document.querySelector('.disp-online').addEventListener('click', handleDispOnlineClick);
+document.querySelector('.disp-offline').addEventListener('click', handleDispOfflineClick);
 
 function getChannelNodeList() {
 	return document.querySelectorAll('.chan-link');
@@ -123,29 +144,5 @@ function getChannelNodeList() {
 function toggleChannelList(targetClass, action) {
 	getChannelNodeList().forEach((channel) => {
 		if(channel.classList.value.includes(targetClass)) { channel.classList[action]("hidden"); }
-	})
-}
-
-function hideActiveChannels() {
-	getChannelNodeList().forEach((channel) => {
-		if(channel.classList.value.includes('stream-on')) { channel.classList.add("hidden"); }
-	})
-}
-
-function showActiveChannels() {
-	getChannelNodeList().forEach((channel) => {
-		if(channel.classList.value.includes('stream-on')) { channel.classList.remove("hidden");	}
-	})
-}
-
-function hideInactiveChannels() {
-	getChannelNodeList().forEach((channel) => {
-		if(channel.classList.value.includes('stream-off')) { channel.classList.add("hidden"); }
-	})
-}
-
-function showInactiveChannels() {
-	getChannelNodeList().forEach((channel) => {
-		if(channel.classList.value.includes('stream-off')) { channel.classList.remove("hidden");	}
 	})
 }
