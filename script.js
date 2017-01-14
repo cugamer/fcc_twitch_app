@@ -1,6 +1,9 @@
 const switchBaseURL = "https://wind-bow.gomix.me/twitch-api/";
 const channels = [
-	"test_channel", "freecodecamp", "doublelift"
+	// "test_channel",
+	// "freecodecamp",
+	"doublelift", 
+	"adsasfdafdasdf"
 ]
 
 function returnTwitchApiCall(endPoint, params) {
@@ -14,13 +17,17 @@ function returnTwitchApiCall(endPoint, params) {
 }
 
 function buildChannelInformation(chan) {
-	let workingChanData;
+	let workingChanData = {
+		channelName: chan
+	};
 	return returnTwitchApiCall('channels/' + chan, {})
 			.then(function(b) {
 				return b.json();
 			})
 			.then(function(data) {
-				workingChanData = data;
+				for(prop in data) {
+					workingChanData[prop] = data[prop];
+				}
 				return returnTwitchApiCall('streams/' + chan, {});
 			})
 			.then(function(blob) {
@@ -31,7 +38,7 @@ function buildChannelInformation(chan) {
 					workingChanData[prop] = data[prop];
 				}
 				return workingChanData;
-			})
+			});
 }
 
 function channelBuilder(channels) {
@@ -41,10 +48,15 @@ function channelBuilder(channels) {
 	});
 	Promise.all(chanPromiseList).then(values => {
 		values.sort(function(a, b) { 
-			return a.display_name.toLowerCase() < b.display_name.toLowerCase() ? -1 : 1; 
+			return a.channelName.toLowerCase() < b.channelName.toLowerCase() ? -1 : 1; 
 		});
 		values.forEach(function(val) {
-			appendChannelItem(createChannelItem(val));
+			console.log(val)
+			if(val.error == "Not Found") {
+				appendChannelItem(createNotFoundChannelItem(val));
+			} else {
+				appendChannelItem(createChannelItem(val));
+			}
 		});
 	});
 }
@@ -64,6 +76,22 @@ function createChannelItem(args) {
 					<h3 class="chan-item chan-status">${chanStatus}</h3>
 				</div>
 			</a>`;
+	return outputNode;
+}
+
+function createNotFoundChannelItem(args) {
+	let outputNode = document.createElement('li')
+	let channelName = args.channelName;
+	let isStreaming = null
+	let chanStatus = isStreaming ? `${args.stream.game}: ${args.stream.channel.status}` : "Offline";
+	let chanStatusClass = isStreaming ? "stream-on" : "stream-off";
+	let chanLogo = args.logo || "https://dummyimage.com/200x200/fff/000.png&text=03XF"
+	outputNode.innerHTML = 
+				`<div class="chan-container">
+					<img class="chan-item chan-logo" src="${chanLogo}">
+					<h3 class="chan-item chan-title">${args.channelName}</h3>
+					<h3 class="chan-item chan-status">This cannel cannot be found and may not exist</h3>
+				</div>`;
 	return outputNode;
 }
 
